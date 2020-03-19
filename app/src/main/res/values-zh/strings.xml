@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FirstApp</string>
+    <string name="Simond">生日快乐！39大帅哥郑基石</string>
+    <string name="action_settings"></string>
+    <string name="gray">李星和</string>
+    <string name="sdsdate">三月九日 </string>
+    <string name="new_botton">转换</string>
+    <string name="out_put">结果是</string>
+</resources>
