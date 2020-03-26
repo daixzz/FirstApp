@@ -38,7 +38,7 @@
         android:id="@+id/btn_euro"
         android:layout_width="match_parent"
         android:text="@string/btn_euro_label"
-        android:onClick="onClick"
+        android:onClick="openOne"
          android:layout_height="wrap_content"/>
 
     <Button

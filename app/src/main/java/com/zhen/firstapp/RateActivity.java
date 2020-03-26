@@ -1,6 +1,9 @@
 package com.zhen.firstapp;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -51,7 +54,13 @@ public class RateActivity extends AppCompatActivity {
         }
 
     }
-
+    public void openOne(View btn){
+        //打开一个页面Activity
+        Log.i("open", "openOne: ");
+        Intent hello =new Intent(this,SecondActivity.class);
+        Intent web = new Intent(Intent.ACTION_VIEW,Uri.parse("http://www.jd.com"));
+        startActivity(web);
+    }
 
 
 }
