@@ -38,13 +38,13 @@
         android:id="@+id/btn_euro"
         android:layout_width="match_parent"
         android:text="@string/btn_euro_label"
-        android:onClick="openOne"
+        android:onClick="onClick"
          android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/btn_won"
         android:text="@string/btn_won_label"
-        android:onClick="onClick"
+        android:onClick="openOne"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
