@@ -54,13 +54,7 @@ public class RateActivity extends AppCompatActivity {
         }
 
     }
-    public void openOne(View btn){
-        //打开一个页面Activity
-        Log.i("open", "openOne: ");
-        Intent hello =new Intent(this,SecondActivity.class);
-        Intent web = new Intent(Intent.ACTION_VIEW,Uri.parse("http://www.jd.com"));
-        startActivity(web);
-    }
+x
 
 
 }
