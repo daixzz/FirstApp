@@ -7,4 +7,5 @@
     <string name="sdsdate">三月九日 </string>
     <string name="new_botton">转换</string>
     <string name="out_put">结果是</string>
+    <string name="texting">请输入摄氏度</string>
 </resources>

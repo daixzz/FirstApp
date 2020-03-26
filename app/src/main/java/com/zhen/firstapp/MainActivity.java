@@ -34,9 +34,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.i("main","onClick msg....");
 
         String str=edit.getText().toString();
-        int num=Integer.parseInt(str);
+        double num=Double.parseDouble(str);
+        if(num<=-273){
+            out.setText("请输入正确的温度");
+        }
+        else{
         double hua=num*1.8+32;
-        out.setText(String.valueOf(hua));
+        out.setText(String.valueOf(hua+"华氏度"));
+        }
     }
 
 
