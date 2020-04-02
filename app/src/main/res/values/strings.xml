@@ -18,5 +18,6 @@
     <string name="hint_txt">Input your name</string>
     <string name="btn_opencfg_label">config</string>
     <string name="btn_save_label">Save</string>
+    <string name="menu_set_label">setting</string>
 
 </resources>

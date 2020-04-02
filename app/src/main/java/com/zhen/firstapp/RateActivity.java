@@ -3,11 +3,14 @@ package com.zhen.firstapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class RateActivity extends AppCompatActivity {
@@ -61,6 +64,10 @@ public class RateActivity extends AppCompatActivity {
     public void openOne(View btn) {
         //打开一个页面Activity
 
+        openConfig();
+    }
+
+    private void openConfig() {
         Intent config = new Intent(this, ConfigActivity.class);
 
         config.putExtra("dollar_rate_key", dollarRate);
@@ -76,7 +83,21 @@ public class RateActivity extends AppCompatActivity {
         startActivityForResult(config, 1);
     }
 
-        protected void onActivityResult(int requestCode , int resultCode , Intent data){
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.rate,menu);
+    return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.menu_set){
+            openConfig();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    protected void onActivityResult(int requestCode , int resultCode , Intent data){
          //requestCode 区分是谁返回的数据；resultCode区分返回的数据通过什么格式去区分
          if(requestCode ==1 && resultCode == 2){
              /*
