@@ -72,14 +72,15 @@ public class RateActivity extends AppCompatActivity implements Runnable{
                     euroRate = bd1.getFloat("euro-rate");
                     wonRate = bd1.getFloat("won-rate");
 
-                    Log.i(TAG,"handleMessage:dollar:"+dollarRate);
-                    Log.i(TAG,"handleMessage:euro:"+euroRate);
-                    Log.i(TAG,"handleMessage:won:"+wonRate);
+                    Log.i(TAG,"handleMessage:dollarRate:"+dollarRate);
+                    Log.i(TAG,"handleMessage:euroRate:"+euroRate);
+                    Log.i(TAG,"handleMessage:wonRate:"+wonRate);
                     Toast.makeText(RateActivity.this,"汇率已更新",Toast.LENGTH_SHORT).show();
                 }
                 super.handleMessage(msg);
             }
         };
+
 
     }
 
@@ -213,49 +214,42 @@ public class RateActivity extends AppCompatActivity implements Runnable{
 //            }catch(IOException e){
 //                e.printStackTrace();
 //            }
-
             Document doc = null;
             try{
                 doc = Jsoup.connect("http://www.usd-cny.com/bankofchina.htm").get();
-                //doc = Jsoup.parse(html);
-                Log.i(TAG,"run:" + doc.title());
-                Elements tables = doc.getElementsByTag("table");
-                //int i = 1;
-//                for(Element table : tables){
-//                    Log.i(TAG,"run:table["+i+"]="+table);
-//                    i++;
+
+                Log.i(TAG,"run:"+doc.title());
+
+                Elements tables =doc.getElementsByTag("table");
+//                for(Element table :tables){
+//                    Log.i(TAG,"run:table=" + table);
 //                }
-//
-                Element table6 =tables.get(5);
-                //Log.i(TAG,"run:table6="+table6);
-                //获取td中的数据
+                Element table6 = tables.get(5);
                 Elements tds = table6.getElementsByTag("td");
-                for(int i = 0;i<tds.size();i++){
-                    Element td1= tds.get(i);
-                    Element td2 =  tds.get(i+5);
+                for (int i =0;i<tds.size();i+=8){
+                    Element td1=tds.get(i);
+                    Element td2=tds.get(i+5);
+                    String str1 = td1.text();
+                    String val = td2.text();
 
-                    Log.i(TAG,"run:=" +td1.text()+"==>+td2.text()");
-                    String str1= td1.text();
-                    String val =td2.text();
-                    if ("美元".equals(str1)) {
-                        bundle.putFloat("dollar-rate",100f/Float.parseFloat(val));
+                    Log.i(TAG,"run:"+str1+"==>"+val);
 
+                    float v =100f/Float.parseFloat(val);
+                    if("美元".equals(str1)){
+                        bundle.putFloat("dollar-rate",v);
                     }
-                    else if ("欧元".equals(str1)) {
-                        bundle.putFloat("euro-rate",100f/Float.parseFloat(val));
-
+                    else if("欧元".equals(str1)){
+                        bundle.putFloat("euro-rate",v);
                     }
-                    else if ("韩国元".equals(str1)) {
-                        bundle.putFloat("won-rate",100f/Float.parseFloat(val));
-
+                    else if("韩国元".equals(str1)){
+                        bundle.putFloat("won-rate",v);
                     }
-                }
 
-
-            }catch(IOException e){
-                e.printStackTrace();
             }
-
+            }
+                   catch (IOException e) {
+                e.printStackTrace();
+                   }
             //bundle 中保存所获取的汇率
 
             //获取message对象 用于返回主线程
