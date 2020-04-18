@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,72 +24,70 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+
 
 public class RateActivity extends AppCompatActivity implements Runnable{
 
 
     private final String TAG = "Rate";
-    private float dollarRate = 0.1f;
-    private float euroRate = 0.2f;
-    private float wonRate = 0.3f;
+    private float dollarRate = 0.0f;
+    private float euroRate = 0.0f;
+    private float wonRate = 0.0f;
     EditText rmb;
     TextView show;
     Handler handler;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate);
 
-        rmb = (EditText)findViewById(R.id.rmb);
-        show = (TextView)findViewById(R.id.showOut);
+        rmb = (EditText) findViewById(R.id.rmb);
+        show = (TextView) findViewById(R.id.showOut);
 
         //获得sp里保存的数据
         SharedPreferences sharedPreferences = getSharedPreferences("myrate", Activity.MODE_PRIVATE);
-        //SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        dollarRate = sharedPreferences.getFloat("dollar_rate",0.0f);
-        euroRate = sharedPreferences.getFloat("euro_rate",0.0f);
-        wonRate = sharedPreferences.getFloat("won_rate",0.0f);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        dollarRate = sharedPreferences.getFloat("dollar_rate", 0.0f);
+        euroRate = sharedPreferences.getFloat("euro_rate", 0.0f);
+        wonRate = sharedPreferences.getFloat("won_rate", 0.0f);
 
-
-        Log.i(TAG,"onCreate: sp dollarRate=" +dollarRate);
-        Log.i(TAG,"onCreate: sp wonRate=" +wonRate);
-        Log.i(TAG,"onCreate: sp euroRate=" +euroRate);
+//sos
+        Log.i(TAG, "onCreate: sp dollarRate=" + dollarRate);
+        Log.i(TAG, "onCreate: sp wonRate=" + wonRate);
+        Log.i(TAG, "onCreate: sp euroRate=" + euroRate);
 
 
         //开启子线程
         Thread t = new Thread(this);
         t.start();
 
-        handler = new Handler(){
-            @Override
-            public void handleMessage(@NonNull Message msg) {
-                if(msg.what == 5){
-                    Bundle bd1= (Bundle)msg.obj;
-                   dollarRate = bd1.getFloat("dollar-rate");
+
+        handler = new Handler() {
+            public void handleMessage(Message msg) {
+                if (msg.what == 0*123) {
+                    Bundle bd1 = (Bundle) msg.obj;
+                    dollarRate = bd1.getFloat("dollar-rate");
                     euroRate = bd1.getFloat("euro-rate");
                     wonRate = bd1.getFloat("won-rate");
 
-                    Log.i(TAG,"handleMessage:dollarRate:"+dollarRate);
-                    Log.i(TAG,"handleMessage:euroRate:"+euroRate);
-                    Log.i(TAG,"handleMessage:wonRate:"+wonRate);
-                    Toast.makeText(RateActivity.this,"汇率已更新",Toast.LENGTH_SHORT).show();
-                }
+                    Log.i(TAG, "handleMessage:dollarRate:" + dollarRate);
+                    Log.i(TAG, "handleMessage:euroRate:" + euroRate);
+                    Log.i(TAG, "handleMessage:wonRate:" + wonRate);
+                    Toast.makeText(RateActivity.this, "汇率已更新", Toast.LENGTH_SHORT).show();
+
+            }
                 super.handleMessage(msg);
             }
+
+
         };
-
-
     }
 
     public void onClick(View btn){
         //获取用户输入内容
-        Log.i(TAG,"onClick:");
         String str = rmb.getText().toString();
-        Log.i(TAG,"onClick:get str="+str);
 
         float r =0;
         if(str.length()>0){
@@ -114,12 +113,28 @@ public class RateActivity extends AppCompatActivity implements Runnable{
 
     }
     public void openOne(View btn) {
-        //打开一个页面Activity
+        Log.i("open;","openOne;");
+        Intent config = new Intent(this, ConfigActivity.class);
 
-        openConfig();
+        config.putExtra("dollar_rate_key", dollarRate);
+        config.putExtra("euro_rate_key", euroRate);
+        config.putExtra("won_rate_key", wonRate);
+
+
+        Log.i(TAG, "openOne:dollar_rate_key=" + dollarRate);
+        Log.i(TAG, "openOne:euro_rate_key=" + euroRate);
+        Log.i(TAG, "openOne:won_rate_key=" + wonRate);
+
+        //打开一个页面Activity
+        startActivity(config);
+
+        startActivityForResult(config, 1);
+
+
     }
 
     private void openConfig() {
+
         Intent config = new Intent(this, ConfigActivity.class);
 
         config.putExtra("dollar_rate_key", dollarRate);
@@ -149,6 +164,7 @@ public class RateActivity extends AppCompatActivity implements Runnable{
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     protected void onActivityResult(int requestCode , int resultCode , Intent data){
          //requestCode 区分是谁返回的数据；resultCode区分返回的数据通过什么格式去区分
@@ -185,6 +201,9 @@ public class RateActivity extends AppCompatActivity implements Runnable{
 
         public void run(){
             Log.i(TAG,"run:run()......");
+            for(int i = 1;i<6;i++){
+                Log.i(TAG,"run:i="+i);
+            }
                 try{
                     Thread.sleep(3000);
                 }catch(InterruptedException e){
@@ -216,7 +235,7 @@ public class RateActivity extends AppCompatActivity implements Runnable{
 //            }
             Document doc = null;
             try{
-                doc = Jsoup.connect("http://www.usd-cny.com/bankofchina.htm").get();
+                doc = Jsoup.connect("https://www.usd-cny.com/bankofchina.htm").get();
 
                 Log.i(TAG,"run:"+doc.title());
 
@@ -224,9 +243,10 @@ public class RateActivity extends AppCompatActivity implements Runnable{
 //                for(Element table :tables){
 //                    Log.i(TAG,"run:table=" + table);
 //                }
-                Element table6 = tables.get(5);
-                Elements tds = table6.getElementsByTag("td");
-                for (int i =0;i<tds.size();i+=8){
+                Element table1 = tables.get(0);
+                Log.i(TAG,"run:table1="+table1);
+                Elements tds = table1.getElementsByTag("td");
+                for (int i =0;i<tds.size();i+=6){
                     Element td1=tds.get(i);
                     Element td2=tds.get(i+5);
                     String str1 = td1.text();
@@ -241,7 +261,7 @@ public class RateActivity extends AppCompatActivity implements Runnable{
                     else if("欧元".equals(str1)){
                         bundle.putFloat("euro-rate",v);
                     }
-                    else if("韩国元".equals(str1)){
+                    else if("韩元".equals(str1)){
                         bundle.putFloat("won-rate",v);
                     }
 
@@ -254,26 +274,26 @@ public class RateActivity extends AppCompatActivity implements Runnable{
 
             //获取message对象 用于返回主线程
             Message msg = handler.obtainMessage(5);
-            //msg.what = S;
+            //msg.what = 5;
            // msg.obj = "Hello from run()";
             msg.obj=bundle;
             handler.sendMessage(msg);
 
         }
-        private String inputStream2String(InputStream inputStream) throws IOException{
-            final int bufferSize = 1024;
-            final char[] buffer = new char[bufferSize];
-            final StringBuilder out = new StringBuilder();
-            Reader in = new InputStreamReader(inputStream, "gb2312");
-            for(; ; ){
-                int rsz = in.read(buffer,0,buffer.length);
-                if(rsz < 0 )
-                    break;
-                out.append(buffer,0,buffer.length);
-            }
-
-
-            return out.toString();
-        }
+//        private String inputStream2String(InputStream inputStream) throws IOException{
+//            final int bufferSize = 1024;
+//            final char[] buffer = new char[bufferSize];
+//            final StringBuilder out = new StringBuilder();
+//            Reader in = new InputStreamReader(inputStream, "gb2312");
+//            for(; ; ){
+//                int rsz = in.read(buffer,0,buffer.length);
+//                if(rsz < 0 )
+//                    break;
+//                out.append(buffer,0,buffer.length);
+//            }
+//
+//
+//            return out.toString();
+//        }
 
 }
