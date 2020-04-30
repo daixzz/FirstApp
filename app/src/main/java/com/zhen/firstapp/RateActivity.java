@@ -281,6 +281,7 @@ public class RateActivity extends AppCompatActivity implements Runnable{
 //                }
             Element table1 = tables.get(0);
             Log.i(TAG,"run:table1="+table1);
+
             Elements tds = table1.getElementsByTag("td");
             for (int i =0;i<tds.size();i+=6){
                 Element td1=tds.get(i);
