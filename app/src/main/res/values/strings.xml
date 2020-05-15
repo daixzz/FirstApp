@@ -21,5 +21,8 @@
     <string name="menu_set_label">setting</string>
     <string name="label_open_list">OpenList</string>
     <string name="confirm">confirm</string>
+    <string name="searchButton" />
+    <string name="search_button">SEARCH</string>
+    <string name="SearchSth">input the text</string>
 
 </resources>
