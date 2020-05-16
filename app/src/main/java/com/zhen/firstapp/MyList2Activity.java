@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MyList2Activity extends ListActivity implements Runnable, AdapterView.OnItemClickListener{
+public class MyList2Activity extends ListActivity implements Runnable, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     private String TAG = "mylist2";
     Handler handler;
@@ -57,6 +57,7 @@ public class MyList2Activity extends ListActivity implements Runnable, AdapterVi
         };
 
         getListView().setOnItemClickListener(this);
+        getListView().setOnItemLongClickListener(this);
 
     }
 
@@ -65,7 +66,7 @@ public class MyList2Activity extends ListActivity implements Runnable, AdapterVi
         for(int i = 0;i < 10;i++){
             HashMap<String,String> map = new HashMap<String, String>();
             map.put("ItemTitle","Rate:" + i);
-            map.put("ItemDetail","detail:" + i);
+            map.put("ItemDetail","" + i);
             listItems.add(map);
         }
         listItemAdapter = new SimpleAdapter(this,listItems,
@@ -142,5 +143,13 @@ public class MyList2Activity extends ListActivity implements Runnable, AdapterVi
         startActivity(rateCalc);
 
 
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.i(TAG,"OnItemLongClick:长按列表项position="+position);
+        //删除操作
+
+        return false;
     }
 }
