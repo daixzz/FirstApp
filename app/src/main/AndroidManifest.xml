@@ -11,31 +11,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".TheMovie">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
-
-        <activity android:name=".RateCalcActivity" android:theme="@style/Theme.AppCompat.Dialog"/>
-        <activity android:name=".MyList2Activity" >
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RateCalcActivity"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity android:name=".MyList2Activity" />
+        <activity android:name=".MyListActivity">
 
         </activity>
-
-        <activity android:name=".MyListActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-    </activity>
-
-    <activity android:name=".RateListActivity" />
-
+        <activity android:name=".RateListActivity" />
         <activity android:name=".ConfigActivity" />
-        <activity android:name=".RateActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".RateActivity">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".SecondActivity" />
         <activity android:name=".MainActivity">

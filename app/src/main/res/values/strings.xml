@@ -1,28 +1,31 @@
 <resources>
     <string name="app_name">FirstApp</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings" translatable="false">Settings</string>
     <string name="Simond">happy birthday!Simon dominic</string>
     <string name="sdsdate">March 9</string>
     <string name="gray">lovesmd</string>//hello simond
     <string name="new_botton">transfer</string>
     <string name="out_put">answer：</string>
     <string name="texting">texting</string>
-    <string name="lable_add1">+1 point</string>
-    <string name="lable_add2">+2 points</string>
-    <string name="lable_add3">+3 points</string>
-    <string name="btn_resert_label">resert</string>
-    <string name="btn_dollar_label">Dollar</string>
-    <string name="btn_euro_label">Euro</string>
-    <string name="btn_won_label">Won</string>
-    <string name="rmb_hint">Input RMB</string>
-    <string name="hint_txt">Input your name</string>
-    <string name="btn_opencfg_label">config</string>
-    <string name="btn_save_label">Save</string>
-    <string name="menu_set_label">setting</string>
-    <string name="label_open_list">OpenList</string>
-    <string name="confirm">confirm</string>
-    <string name="searchButton" />
-    <string name="search_button">SEARCH</string>
-    <string name="SearchSth">input the text</string>
+    <string name="lable_add1" translatable="false">+1 point</string>
+    <string name="lable_add2" translatable="false">+2 points</string>
+    <string name="lable_add3" translatable="false">+3 points</string>
+    <string name="btn_resert_label" translatable="false">resert</string>
+    <string name="btn_dollar_label" translatable="false">Dollar</string>
+    <string name="btn_euro_label" translatable="false">Euro</string>
+    <string name="btn_won_label" translatable="false">Won</string>
+    <string name="rmb_hint" translatable="false">Input RMB</string>
+    <string name="hint_txt" translatable="false">Input your name</string>
+    <string name="btn_opencfg_label" translatable="false">config</string>
+    <string name="btn_save_label" translatable="false">Save</string>
+    <string name="menu_set_label" translatable="false">setting</string>
+    <string name="label_open_list" translatable="false">OpenList</string>
+    <string name="confirm" translatable="false">confirm</string>
+    <string name="searchButton" translatable="false" />
+    <string name="search_button" translatable="false">SEARCH</string>
+    <string name="SearchSth" translatable="false">input the text</string>
+    <string name="title" translatable="false">\"La Vie En Rose\"</string>
+    <string name="input">input your movie</string>
+    <string name="Searchch">Search for...</string>
 
 </resources>
